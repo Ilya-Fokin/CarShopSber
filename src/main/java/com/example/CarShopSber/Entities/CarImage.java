@@ -19,7 +19,8 @@ public class CarImage {
     @Id
     @UuidGenerator
     @Column(name = "id", columnDefinition = "VARCHAR(255)")
-    private UUID id;
+    private UUID id = UUID.randomUUID();
+
     @Column(name = "path")
     @NotNull
     private String path;

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600" rel="stylesheet">
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <title>Авто</title>
+</head>
+<body class="login_body">
+<div class="login_zone">
+    <a href="/"><img class="logo" id="large_logo" src="images/logo.png"></a>
+    <b id="registration_error_v2" class="incorrect_input">Неверно введены логин или пароль</b>
+    <form id="sign_in_form" class="classic_form" name="login_form" method="post" action="/login">
+        <input id="username" type="text" placeholder="Логин" class="input_search" name="username">
+        <input id="password" type="password" placeholder="Пароль" class="input_search" name="password">
+
+        <button class="button-49" role="button" type="submit">Войти</button>
+    </form>
+    <a class="sign_up_href" href="/sign_up">Еще нет аккаунта? Пройти регистрацию</a>
+</div>
+
+</body>
+<script src="js/login.js"></script>
+</html>

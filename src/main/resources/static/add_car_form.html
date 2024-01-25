@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600" rel="stylesheet">
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <title>Авто</title>
+</head>
+<body class="login_body">
+<div class="login_zone">
+    <a href="/"><img class="logo" id="large_logo" src="images/logo.png"></a>
+    <b id="registration_error" class="incorrect_input"></b>
+    <form  class="classic_form" name="login_form" onsubmit="return false">
+        <input id="title" type="text" placeholder="Заголовок" class="input_search" name="title">
+        <input id="description" type="text" placeholder="Описание" class="input_search" name="description">
+        <input id="brand" type="text" placeholder="Марка" class="input_search" name="brand">
+        <input id="model" type="text" placeholder="Модель" class="input_search" name="model">
+        <input id="yearOfRelease" type="text" placeholder="Год выпуска" class="input_search" name="yearOfRelease">
+        <input id="color" type="text" placeholder="Цвет" class="input_search" name="color">
+        <input id="wheelDrive" type="text" placeholder="Привод" class="input_search" name="wheelDrive">
+        <input id="mileage" type="text" placeholder="Пробег" class="input_search" name="mileage">
+        <input id="type" type="text" placeholder="Кузов" class="input_search" name="type">
+        <input id="price" type="text" placeholder="Цена" class="input_search" name="price">
+        <input id="transmission" type="text" placeholder="Коробка передач" class="input_search" name="transmission">
+        <input id="carImages" type="file" placeholder="Выберите фото" class="input_search" name="carImages" multiple>
+
+        <button id="registration_button" class="button-49" role="button" onclick="addCar()">Добавить</button>
+    </form>
+</div>
+
+</body>
+<script src="js/car.js"></script>
+</html>

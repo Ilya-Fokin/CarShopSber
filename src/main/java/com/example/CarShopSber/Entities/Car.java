@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 import org.hibernate.annotations.UuidGenerator;
 
@@ -16,12 +17,13 @@ import java.util.UUID;
 @Table(name = "car")
 @Getter
 @Setter
+@NoArgsConstructor
 @EqualsAndHashCode
 public class Car {
     @Id
     @UuidGenerator
     @Column(name = "id", columnDefinition = "VARCHAR(255)")
-    private UUID id;
+    private UUID id = UUID.randomUUID();
 
     @Column(name = "title")
     @NotNull

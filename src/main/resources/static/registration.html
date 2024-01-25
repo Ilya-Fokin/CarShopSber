@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&family=Open+Sans:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="css/style.css">
+    <link href="https://fonts.googleapis.com/css?family=Poppins:600" rel="stylesheet">
+    <script src="js/jquery-3.0.0.min.js"></script>
+    <title>Авто</title>
+</head>
+<body class="login_body">
+<div class="login_zone">
+    <a href="/"><img class="logo" id="large_logo" src="images/logo.png"></a>
+    <b id="registration_error" class="incorrect_input"></b>
+    <form  class="classic_form" name="login_form" onsubmit="return false">
+        <input id="username" type="text" placeholder="Логин" class="input_search" name="username">
+        <input id="firstname" type="text" placeholder="Имя" class="input_search" name="firstname">
+        <input id="secondname" type="text" placeholder="Фамилия" class="input_search" name="secondname">
+        <input id="mail" type="text" placeholder="Почта" class="input_search" name="mail">
+        <input id="password" type="password" placeholder="Пароль" class="input_search" name="password">
+        <input id="repeat_password" type="password" placeholder="Повторите пароль" class="input_search" name="password_repeat">
+        <input id="number" type="text" placeholder="Телефон" class="input_search" name="number">
+
+        <button id="registration_button" class="button-49" role="button" onclick="signUp()">Зарегистрироваться</button>
+    </form>
+    <a class="sign_up_href" href="/sign_in">Уже зарегистрированы? Войти</a>
+</div>
+
+</body>
+<script src="js/registration.js"></script>
+</html>
