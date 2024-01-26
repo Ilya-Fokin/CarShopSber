@@ -7,5 +7,8 @@ import org.springframework.data.repository.CrudRepository;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Репозиторий для доступа к данным избранных пользователей в базе данных.
+ */
 public interface FavouriteRepo extends CrudRepository<Favourite, UUID> {
 }

@@ -9,8 +9,19 @@ import com.fasterxml.jackson.databind.node.TextNode;
 
 import java.io.IOException;
 
+/**
+ * Десериализатор для преобразования строкового значения в enum {@link Transmission}.
+ */
 public class TransmissionDeserializer extends JsonDeserializer<Transmission> {
 
+    /**
+     * Десериализует строковое значение в соответствующий enum {@link Transmission}.
+     *
+     * @param parser  Парсер JSON.
+     * @param context Контекст десериализации.
+     * @return Экземпляр enum {@link Transmission}, соответствующий строковому значению.
+     * @throws IOException Если возникает ошибка ввода/вывода при десериализации.
+     */
     @Override
     public Transmission deserialize(JsonParser parser, DeserializationContext context) throws IOException {
         TextNode textNode = parser.getCodec().readTree(parser);

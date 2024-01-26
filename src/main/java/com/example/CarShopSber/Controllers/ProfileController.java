@@ -16,6 +16,9 @@ import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
 
+/**
+ * Контроллер, отвечающий за обработку запросов, связанных с профилем пользователя.
+ */
 @RestController
 @RequestMapping("/profile")
 public class ProfileController {
@@ -25,6 +28,11 @@ public class ProfileController {
     @Autowired
     private CarServiceImpl carService;
 
+    /**
+     * Обработка запроса для получения текущего пользователя.
+     *
+     * @return Объект пользователя.
+     */
     @GetMapping("/get_current_user")
     @ResponseBody
     public User getUser() {
@@ -34,6 +42,11 @@ public class ProfileController {
         return user;
     }
 
+    /**
+     * Обработка запроса для получения списка автомобилей пользователя.
+     *
+     * @return Список автомобилей пользователя.
+     */
     @GetMapping("/get_all_car_by_user")
     public List<Car> getUserCar() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -42,5 +55,4 @@ public class ProfileController {
         System.out.println(cars);
         return cars;
     }
-
 }

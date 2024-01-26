@@ -10,11 +10,20 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+/**
+ * Контроллер, отвечающий за обработку запросов, связанных с регистрацией пользователей.
+ */
 @RestController
 public class RegistrationController {
     @Autowired
     private UserServiceImpl userService;
 
+    /**
+     * Обработка запроса на регистрацию нового пользователя.
+     *
+     * @param user Запрос на регистрацию пользователя.
+     * @return HTTP-ответ с сообщением об успешной регистрации или ошибкой.
+     */
     @PostMapping("/sign_up")
     public ResponseEntity<String> signUp(@Valid @RequestBody User user) {
         User user2 = userService.save(user);

@@ -13,6 +13,9 @@ import org.hibernate.type.SqlTypes;
 
 import java.util.UUID;
 
+/**
+ * Сущность, представляющая изображение автомобиля.
+ */
 @Entity
 @Table(name = "car_images")
 @Getter
@@ -20,17 +23,25 @@ import java.util.UUID;
 @NoArgsConstructor
 @EqualsAndHashCode
 public class CarImage {
-
+    /**
+     * Уникальный идентификатор изображения автомобиля.
+     */
     @Id
     @UuidGenerator
     @Column(name = "id")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id = UUID.randomUUID();
 
+    /**
+     * Путь к изображению автомобиля.
+     */
     @Column(name = "path")
     @NotNull
     private String path;
 
+    /**
+     * Автомобиль, к которому привязано изображение.
+     */
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "car_id")
     @JsonBackReference

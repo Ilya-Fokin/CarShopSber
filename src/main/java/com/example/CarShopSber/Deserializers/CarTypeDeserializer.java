@@ -10,7 +10,18 @@ import com.fasterxml.jackson.databind.node.TextNode;
 
 import java.io.IOException;
 
+/**
+ * Десериализатор для преобразования строкового значения в enum {@link CarType}.
+ */
 public class CarTypeDeserializer extends JsonDeserializer<CarType> {
+    /**
+     * Десериализует строковое значение в соответствующий enum {@link CarType}.
+     *
+     * @param parser                Парсер JSON.
+     * @param deserializationContext Контекст десериализации.
+     * @return Экземпляр enum {@link CarType}, соответствующий строковому значению.
+     * @throws IOException Если возникает ошибка ввода/вывода при десериализации.
+     */
     @Override
     public CarType deserialize(JsonParser parser, DeserializationContext deserializationContext) throws IOException, JacksonException {
         TextNode textNode = parser.getCodec().readTree(parser);

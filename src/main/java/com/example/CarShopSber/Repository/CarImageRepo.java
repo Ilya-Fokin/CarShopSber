@@ -8,7 +8,9 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
+/**
+ * Репозиторий для работы с изображениями машин.
+ */
 public interface CarImageRepo extends CrudRepository<CarImage, UUID> {
-    List<CarImage> findAllByCar(Car car);
-    CarImage save(CarImage carImage);
+
 }

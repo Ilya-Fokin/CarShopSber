@@ -11,9 +11,18 @@ import org.springframework.web.bind.annotation.ResponseStatus;
 import java.util.List;
 import java.util.stream.Collectors;
 
+/**
+ * Обработчик ошибок контроллера для обработки исключений, связанных с нарушением ограничений и невалидными аргументами методов.
+ */
 @ControllerAdvice
 public class ErrorHandlingControllerAdvice {
 
+    /**
+     * Обработчик исключений ConstraintViolationException.
+     *
+     * @param e Исключение ConstraintViolationException.
+     * @return Ответ с сообщением об ошибках валидации.
+     */
     @ResponseBody
     @ExceptionHandler(ConstraintViolationException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
@@ -31,6 +40,12 @@ public class ErrorHandlingControllerAdvice {
         return new ValidationErrorResponse(violations);
     }
 
+    /**
+     * Обработчик исключений MethodArgumentNotValidException.
+     *
+     * @param e Исключение MethodArgumentNotValidException.
+     * @return Ответ с сообщением об ошибках валидации.
+     */
     @ExceptionHandler(MethodArgumentNotValidException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
     @ResponseBody
@@ -42,5 +57,4 @@ public class ErrorHandlingControllerAdvice {
                 .collect(Collectors.toList());
         return new ValidationErrorResponse(violations);
     }
-
 }

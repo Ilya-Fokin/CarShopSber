@@ -20,6 +20,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Контроллер для работы с избранными автомобилями пользователя.
+ */
 @RestController
 public class FavouriteController {
 
@@ -32,6 +35,12 @@ public class FavouriteController {
     @Autowired
     private CarServiceImpl carService;
 
+    /**
+     * Добавляет автомобиль в избранное пользователя.
+     *
+     * @param id    Идентификатор добавляемого автомобиля.
+     * @return      HTTP-ответ с результатом операции.
+     */
     @PostMapping("/favourite/add")
     public ResponseEntity<String> addFavourite(@RequestParam String id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -48,6 +57,11 @@ public class FavouriteController {
         }
     }
 
+    /**
+     * Возвращает список всех избранных автомобилей пользователя.
+     *
+     * @return Список избранных автомобилей.
+     */
     @GetMapping("/favourite/get_all")
     public List<Car> getAll() {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
@@ -55,6 +69,12 @@ public class FavouriteController {
         return favouriteService.getFavoriteCars(user);
     }
 
+    /**
+     * Удаляет автомобиль из избранного пользователя.
+     *
+     * @param id    Идентификатор удаляемого автомобиля.
+     * @return      HTTP-ответ с результатом операции.
+     */
     @PostMapping("/favourite/drop")
     public ResponseEntity<String> drop(@RequestParam String id) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();

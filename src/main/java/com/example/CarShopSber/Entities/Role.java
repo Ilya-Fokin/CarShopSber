@@ -13,21 +13,35 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
+/**
+ * Сущность, представляющая роль пользователя.
+ */
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @Table(name = "roles")
 public class Role {
+    /**
+     * Уникальный идентификатор роли.
+     */
     @Id
     @UuidGenerator
     @Column(name = "id")
     @JdbcTypeCode(SqlTypes.VARCHAR)
     private UUID id = UUID.randomUUID();
 
+    /**
+     * Наименование роли.
+     */
     @NotNull
     private String name;
 
+    /**
+     * Конструктор сущности Role.
+     *
+     * @param name Наименование роли.
+     */
     public Role(String name) {
         this.name = name;
     }

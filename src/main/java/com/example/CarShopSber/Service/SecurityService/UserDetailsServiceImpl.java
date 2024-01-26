@@ -10,14 +10,25 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
+
 import java.util.Set;
 import java.util.stream.Collectors;
 
+/**
+ * Реализация интерфейса UserDetailsService для аутентификации пользователей.
+ */
 @Service
 public class UserDetailsServiceImpl implements UserDetailsService {
     @Autowired
     UserRepo userRepo;
 
+    /**
+     * Загружает пользователя по его имени для аутентификации.
+     *
+     * @param username Имя пользователя.
+     * @return UserDetails объект, представляющий пользователя.
+     * @throws UsernameNotFoundException Если пользователь не найден.
+     */
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         User user = userRepo.findByUsername(username).orElseThrow(() -> new UsernameNotFoundException("Пользователь не найден"));
@@ -31,6 +42,4 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 authorities
         );
     }
-
-
 }
