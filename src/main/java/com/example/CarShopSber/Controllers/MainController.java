@@ -2,11 +2,11 @@ package com.example.CarShopSber.Controllers;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RestController;
+
 
 @Controller
 public class MainController {
+
     @GetMapping("/")
     public String index() {
         return "index.html";
@@ -30,5 +30,10 @@ public class MainController {
 
     @GetMapping("/add_car")
     public String addCar() { return "add_car_form.html"; }
+
+    @GetMapping("/favourite")
+    public String favourite() {
+        return "favourite.html";
+    }
 
 }

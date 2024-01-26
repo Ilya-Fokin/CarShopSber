@@ -1,5 +1,5 @@
 $(document).ready(function () {
-    $.get("/add_car/get_types", function (data) {
+    $.get("/car/add_car/get_types", function (data) {
         console.log(data)
         var select = document.getElementById("type_select")
         for (let elem of data) {
@@ -7,7 +7,7 @@ $(document).ready(function () {
         }
     })
 
-    $.get("/add_car/get_transmissions", function (data) {
+    $.get("/car/add_car/get_transmissions", function (data) {
         console.log(data)
         var select = document.getElementById("type_transmission")
         for (let elem of data) {
@@ -15,7 +15,7 @@ $(document).ready(function () {
         }
     })
 
-    $.get("/add_car/get_wheel_drive", function (data) {
+    $.get("/car/add_car/get_wheel_drive", function (data) {
         console.log(data)
         var select = document.getElementById("type_wheelDrive")
         for (let elem of data) {
@@ -69,7 +69,7 @@ function addCar() {
     console.log(car);
 
     $.ajax({
-        url: "/add_car",
+        url: "/car/add_car",
         method: "POST",
         data: car,
         contentType: 'application/json',

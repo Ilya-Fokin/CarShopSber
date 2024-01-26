@@ -1,5 +1,6 @@
 package com.example.CarShopSber.Entities;
 
+import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
@@ -55,6 +56,12 @@ public class User {
     @Pattern(regexp = "^(\\+7|8)[-\\s]?(\\d{3})[-\\s]?(\\d{3})[-\\s]?(\\d{2})[-\\s]?(\\d{2})$",
     message = "Неверный формат номера телефона")
     private String numberPhone;
+
+    @OneToOne(fetch = FetchType.LAZY,
+            cascade =  CascadeType.ALL,
+            mappedBy = "userFavourite")
+    @JsonIgnore
+    private Favourite favourite;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
     @JsonManagedReference

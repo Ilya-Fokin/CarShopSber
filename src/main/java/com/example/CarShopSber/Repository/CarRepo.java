@@ -11,5 +11,8 @@ import java.util.UUID;
 public interface CarRepo extends CrudRepository<Car, UUID> {
     List<Car> findAll();
     Optional<Car> findByTitle(String title);
+    Optional<Car> findById(UUID id);
     List<Car> findByUser(User user);
+
+    List<Car> findAllByTitleContaining(String title);
 }
