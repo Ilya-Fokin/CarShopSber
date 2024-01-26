@@ -29,6 +29,6 @@ public class MainController {
     public String profile() { return "user_profile.html"; }
 
     @GetMapping("/add_car")
-    public String addCar() { return "add_car.html"; }
+    public String addCar() { return "add_car_form.html"; }
 
 }

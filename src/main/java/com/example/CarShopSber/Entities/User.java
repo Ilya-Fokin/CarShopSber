@@ -1,5 +1,7 @@
 package com.example.CarShopSber.Entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import jakarta.persistence.*;
 import jakarta.persistence.CascadeType;
@@ -18,7 +20,6 @@ import java.util.*;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-@ToString
 public class User {
     @Id
     @UuidGenerator
@@ -56,8 +57,8 @@ public class User {
     private String numberPhone;
 
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL)
+    @JsonManagedReference
     private List<Car> cars = new ArrayList<>();
-
 
     @ManyToMany(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinTable(name = "users_roles",
@@ -73,5 +74,18 @@ public class User {
         this.mail = mail;
         this.password = password;
         this.numberPhone = numberPhone;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                ", username='" + username + '\'' +
+                ", firstName='" + firstName + '\'' +
+                ", secondName='" + secondName + '\'' +
+                ", mail='" + mail + '\'' +
+                ", password='" + password + '\'' +
+                ", numberPhone='" + numberPhone + '\'' +
+                ", roles=" + roles +
+                '}';
     }
 }

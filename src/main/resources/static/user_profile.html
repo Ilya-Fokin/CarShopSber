@@ -14,7 +14,7 @@
 
     <div class="header">
         
-        <a href="#">
+        <a href="/">
             <img class="logo" src="images/logo.png">
         </a>
 
@@ -23,7 +23,7 @@
             </form>
 
         <div class="nav_menu">
-            <a href="#">
+            <a href="/favourites">
                 <img class="nav_icon" src="images/bookmark-heart.svg">
             </a>
             <a href="/profile">
@@ -35,36 +35,20 @@
     <div class="content_zone">
         <div class="hello_user">Здравствуйте, <b id="user_firstname"></b></div>
 
+        <button class="button-49" role="button" onclick="logout()">Выйти</button>
 
-        <div class="recomended_zone">
+        <div id="your_car_zone" class="recomended_zone">
             <div class="header_remoneded_zone">ВАШИ АВТОМОБИЛИ</div>
 
-            <div class="list_card">
-
+            <div class="list_card" id="list_car">
                 <a href="/add_car" class="card_car_add">
                     <div class="image_car">
                         <img src="images/plus.svg">
                     </div>
                 </a>
 
-                <a href="#" class="card_car">
-                    <div class="image_car">
-                        <img src="images/bmw.jpg">
-                    </div>
-
-                    <div class="title_car">Bmw m5 2022г</div>
-
-                    <div class="info_about_car">
-                        <div id="brand">Производитель: Bmw</div>
-                        <div id="model">Модель: M5</div>
-                        <div id="yearOfRelease">Год выпуска: 2022</div>
-                        <div id="mileage">Пробег: 45351км</div>
-                        <div id="hp">Мощность: 192л/c</div>
-                        <div id="trnsmission">Автомат</div>
-                    </div>
-                </a>
-
             </div>
+
         </div>
 
     </div>

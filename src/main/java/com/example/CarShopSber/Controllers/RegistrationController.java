@@ -17,7 +17,6 @@ public class RegistrationController {
 
     @PostMapping("/sign_up")
     public ResponseEntity<String> signUp(@Valid @RequestBody User user) {
-        System.out.println(user.toString());
         User user2 = userService.save(user);
         if (user2 == null) {
             return new ResponseEntity<>("{\"message\":\"Пользователь с таким логином или почтой уже существует\"}", HttpStatus.BAD_REQUEST);
