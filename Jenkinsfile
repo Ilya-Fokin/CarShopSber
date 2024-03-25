@@ -7,11 +7,14 @@ pipeline {
             }
         }
         stage('snyk-test') {
-        echo 'Testing...'
-                snykSecurity(
+            echo 'Testing...'
+            snykSecurity(
                   snykInstallation: 'snyk@latest',
                   snykTokenId: 'snyk-api-token'
-                )
+            )
+            steps {
+            sh 'snyk test'
+            }
         }
         stage('Start Docker Compose') {
              steps {
