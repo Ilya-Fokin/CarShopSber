@@ -1,9 +1,10 @@
 pipeline {
-    agent { docker { image 'maven:3.9.6-eclipse-temurin-17-alpine' } }
+    //agent { docker { image 'maven:3.9.6-eclipse-temurin-17-alpine' } }
     stages {
         stage('build') {
             steps {
-                sh 'mvn clean package'
+                def mvn = tool 'maven';
+                sh "${mvn}/bin/mvn clean package"
             }
         }
         stage('snyk test') {
