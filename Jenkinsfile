@@ -6,6 +6,17 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-
+        stage('snyk-test') {
+        echo 'Testing...'
+                snykSecurity(
+                  snykInstallation: 'snyk@latest',
+                  snykTokenId: 'snyk-api-token'
+                )
+        }
+        stage('Start Docker Compose') {
+             steps {
+                sh 'docker-compose up -d'
+             }
+        }
     }
 }
