@@ -9,7 +9,7 @@ pipeline {
         stage('snyk test') {
             steps {
                 snykSecurity(
-                      snykInstallation: 'Snyk sequrity',
+                      snykInstallation: 'snyk@latest',
                       snykTokenId: 'snyk-api-token',
                       monitorProjectOnBuild: 'true'
                 )
