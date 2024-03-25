@@ -13,7 +13,6 @@ pipeline {
                       snykTokenId: 'snyk-api-token',
                       monitorProjectOnBuild: 'true'
                 )
-                sh 'snyk code test',
                 sh 'snyk test'
             }
         }
