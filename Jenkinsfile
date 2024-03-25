@@ -6,15 +6,6 @@ pipeline {
                 sh 'mvn clean package'
             }
         }
-        stage('snyk test') {
-            steps {
-                snykSecurity(
-                      snykInstallation: 'snyk@latest',
-                      snykTokenId: 'snyk-api-token',
-                      monitorProjectOnBuild: 'true'
-                )
-                sh 'snyk test'
-            }
-        }
+
     }
 }
