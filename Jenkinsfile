@@ -13,7 +13,6 @@ pipeline {
                         snykInstallation: 'snyk@latest',
                         snykTokenId: 'snyk-api-token'
                    )
-                   sh 'snyk test'
             }
         }
         stage('Start Docker Compose') {
