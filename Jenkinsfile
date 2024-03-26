@@ -1,6 +1,7 @@
 def jarName = 'CarShopSber-0.0.1-SNAPSHOT.jar'
 def pathToProject = "/var/lib/jenkins/workspace/CarShopSber/target/${jarName}"
-def snyk = '/home/linuxbrew/.linuxbrew/Cellar/snyk-cli/1.1286.0/bin/snyk'
+def snyk = '/usr/local/bin'
+def org = 'e6122c21-84b0-4172-820e-07a47a1a79a6'
 
 pipeline {
     agent any
@@ -16,7 +17,7 @@ pipeline {
         stage('snyk test') {
             steps {
                 script {
-                    sh 'snyk code test --org=e6122c21-84b0-4172-820e-07a47a1a79a6'
+                    sh "snyk code test --org=e6122c21-84b0-4172-820e-07a47a1a79a6"
                     /*def mvn = tool 'maven';
                     sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:code-test"
                     sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:test"
