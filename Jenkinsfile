@@ -1,5 +1,5 @@
 def jarName = 'CarShopSber-0.0.1-SNAPSHOT.jar'
-def pathToProject = '/var/lib/jenkins/workspace/CarShopSber/target/${jarName}'
+def pathToProject = "/var/lib/jenkins/workspace/CarShopSber/target/${jarName}"
 def snyk = '/home/linuxbrew/.linuxbrew/Cellar/snyk-cli/1.1286.0/bin/snyk'
 
 pipeline {
