@@ -1,6 +1,6 @@
+def projectName = 'CarShopSber'
 pipeline {
     agent any
-    //agent { docker { image 'maven:3.9.6-eclipse-temurin-17-alpine' } }
     stages {
         stage('build') {
             steps {
@@ -12,11 +12,14 @@ pipeline {
         }
         stage('snyk test') {
             steps {
-                   echo 'Testing...'
-                   snykSecurity(
-                        snykInstallation: 'snyk@latest',
-                        snykTokenId: 'snyk-api-token',
-                   )
+                script {
+                    sh 'snyk code test --all-projects'
+                    sh 'snyk monitor --all-projects'
+                    /*def mvn = tool 'maven';
+                    sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:code-test"
+                    sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:test"
+                    sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:monitor"*/
+                }
             }
         }
         stage('Start Docker Compose') {
