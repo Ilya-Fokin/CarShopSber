@@ -17,7 +17,8 @@ pipeline {
         stage('snyk test') {
             steps {
                 script {
-                    sh "${snyk}/./snyk code test"
+                    sh "snyk auth 38cb501e-da66-45ba-8c4b-11880cad04d2"
+                    sh "snyk code test --org=e6122c21-84b0-4172-820e-07a47a1a79a6"
                     /*def mvn = tool 'maven';
                     sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:code-test"
                     sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:test"
