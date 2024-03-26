@@ -1,4 +1,6 @@
-def projectName = 'CarShopSber'
+def jarName = 'CarShopSber-0.0.1-SNAPSHOT.jar'
+def pathToProject = '/var/lib/jenkins/workspace/CarShopSber/target/${jarName}'
+
 pipeline {
     agent any
     stages {
