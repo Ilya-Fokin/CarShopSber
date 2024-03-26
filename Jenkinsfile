@@ -16,8 +16,8 @@ pipeline {
         stage('snyk test') {
             steps {
                 script {
-                    sh '${snyk} code test --all-projects'
-                    sh '${snyk} monitor --all-projects'
+                    sh '${snyk} code test ${pathToProject}'
+                    sh '${snyk} monitor'
                     /*def mvn = tool 'maven';
                     sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:code-test"
                     sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:test"
