@@ -16,8 +16,8 @@ pipeline {
             steps {
                 script {
                     sh "snyk auth ${api}"
-                    sh "snyk code test --json | snyk-to-html -o results-opensource.html --org=${org}"
-                    sh "snyk test --json | snyk-to-html -o results-opensource.html --org=${org}"
+                    sh "snyk code test --json --org=${org} | snyk-to-html -o results-opensource.html"
+                    sh "snyk test --json --org=${org} | snyk-to-html -o results-opensource.html"
                     sh "snyk monitor --org=${org}"
                     /*def mvn = tool 'maven';
                     sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:code-test"
