@@ -18,6 +18,7 @@ pipeline {
                     sh "snyk auth ${api}"
                     sh "snyk code test --json --org=${org} | snyk-to-html -o results-opensource.html"
                     sh "snyk test --json --org=${org} | snyk-to-html -o results-opensource.html"
+                    sh "chmod +x mvnw"
                     sh "snyk monitor --org=${org} -d"
                 }
             }
