@@ -19,7 +19,7 @@ pipeline {
                     sh "snyk code test --json --org=${org} | snyk-to-html -o results-code-test.html"
                     sh "snyk test --json --org=${org} | snyk-to-html -o results-test.html"
                     sh "chmod +x mvnw"
-                    sh "snyk monitor --org=${org} -d"
+                    sh "snyk monitor --org=${org}"
                 }
             }
         }
