@@ -19,14 +19,21 @@ pipeline {
                     def result_json = 'code-test.json'
                     def code_test_html = 'code-test.html'
                     def test_html = 'test.html'
+
                     sh "snyk auth ${api}"
                     sh "snyk config set org=${org}"
                     sh "chmod +x mvnw"
+
                     def snykTestOutput = sh(script: "snyk test --json-file-output=${result_json} --fail-on=all", returnStdout: true, returnStatus: true)
                     if (snykTestOutput != 0) {
                         def developerEmail = sh(script: "git log -1 --pretty=format:'%ae'", returnStdout: true).trim()
                         echo "Developer Email: ${developerEmail}"
                         sh "snyk-to-html -i ${result_json} -o ${test_html}"
+                        emailext body: 'Body of the email',
+                                subject: 'Snyk find vulnerabilities',
+                                to: developerEmail,
+                                mimeType: 'text/html',
+                                attachmentsPattern: "/var/lib/jenkins/workspace/CarShopSber/${test_html.html}"
                         error 'Snyk found vulnerabilities in the code. Pipeline will be stopped.'
                     } else {
                         echo 'Snyk did not find any vulnerabilities. Proceeding with the pipeline.'
