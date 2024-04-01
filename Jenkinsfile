@@ -31,7 +31,7 @@ pipeline {
                         sh "snyk-to-html -i ${result_json} -o ${test_html}"
                         emailext body: 'Body of the email',
                                 subject: 'Snyk find vulnerabilities',
-                                to: developerEmail,
+                                to: "fokin3349@mail.ru",
                                 mimeType: 'text/html',
                                 attachmentsPattern: "${test_html}"
                         error 'Snyk found vulnerabilities in the code. Pipeline will be stopped.'
