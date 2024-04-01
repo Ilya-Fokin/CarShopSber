@@ -16,16 +16,10 @@ pipeline {
         stage('snyk test') {
             steps {
                 script {
-                    /*def mvn = tool 'maven';
-                    sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:code-test"
-                    sh "snyk-to-html -i results-code.json -o results-code.html"
-                    sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:monitor"
-                    sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:test"
-                    sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:monitor"*/
                     sh "snyk auth ${api}"
                     sh "snyk config set org=${org}"
-                    sh "snyk code test --json-file-output=results-code.json --fail-on=all"
-                    sh "snyk test --json | snyk-to-html -o results-test.html"
+                    sh "snyk code test --json --fail-on=all | snyk-to-html -o results-test.html"
+                    sh "snyk test --json-file-output=results-opensource.json | snyk-to-html -o results-test.html"
                     sh "chmod +x mvnw"
                     sh "snyk monitor --org=${org}"
                 }
