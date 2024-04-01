@@ -19,7 +19,7 @@ pipeline {
                     sh "snyk auth ${api}"
                     sh "snyk config set org=${org}"
                     sh "chmod +x mvnw"
-                    sh "snyk test --json-file-output=code-test.json --fail-on=all | -i code-test.json -o code-test.html"
+                    sh "snyk test --json-file-output=code-test.json --fail-on=all | snyk-to-html -i code-test.json -o code-test.html"
                     //sh "snyk code test --report --project-name=\"CarShopSber\" --json-file-output=results-code.json --fail-on=all"
                     //sh "snyk monitor --org=${org}"
                 }
