@@ -17,8 +17,8 @@ pipeline {
             steps {
                 script {
                     sh "snyk auth ${api}"
-                    sh "snyk code test --json --org=${org} | snyk-to-html -o results-code-test.html"
-                    sh "snyk test --json --org=${org} | snyk-to-html -o results-test.html"
+                    sh "snyk code test --fail-on=all --json --org=${org} | snyk-to-html -o results-code-test.html"
+                    sh "snyk test --fail-on=all --json --org=${org} | snyk-to-html -o results-test.html"
                     sh "chmod +x mvnw"
                     sh "snyk monitor --org=${org}"
                 }
