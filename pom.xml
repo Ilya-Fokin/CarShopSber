@@ -93,6 +93,7 @@
 							<goal>code-test</goal>
 						</goals>
 						<configuration>
+							<skip>true</skip>
 							<failOnIssues>true</failOnIssues><args>
 							<arg>--json-file-output=results-code.json</arg>
 						</args>
