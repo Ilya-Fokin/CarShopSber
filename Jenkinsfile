@@ -17,7 +17,8 @@ pipeline {
             steps {
                 script {
                     def mvn = tool 'maven';
-                    sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:code-test --json | snyk-to-html -o results-code-test.html"
+                    sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:code-test"
+                    sh "snyk-to-html -i results-code.json -o results-code.html"
                     sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:monitor"
                     sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:test"
                     sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:monitor"
