@@ -95,6 +95,7 @@
 						<configuration>
 							<skip>true</skip>
 							<failOnIssues>true</failOnIssues><args>
+							<arg>--report --project-name="CarShopSber"</arg>
 							<arg>--json-file-output=results-code.json</arg>
 						</args>
 
