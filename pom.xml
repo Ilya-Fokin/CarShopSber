@@ -88,29 +88,30 @@
 				<inherited>false</inherited>
 				<executions>
 					<execution>
+						<phase>none</phase>
 						<id>code-test</id>
 						<goals>
 							<goal>code-test</goal>
 						</goals>
 						<configuration>
-							<skip>true</skip>
-							<failOnIssues>false</failOnIssues>
-							<apiToken>38cb501e-da66-45ba-8c4b-11880cad04d2</apiToken>
 							<args>
-							<arg>--report --project-name="CarShopSber"</arg>
-							<arg>--json-file-output=results-code.json</arg>
-						</args>
-
-
+								<arg>--report</arg>
+								<arg>--project-name="CarShopSber"</arg>
+								<arg>--json-file-output=results-code.json</arg>
+							</args>
 						</configuration>
 					</execution>
 					<execution>
+						<phase>none</phase>
 						<id>snyk-monitor</id>
 						<goals>
 							<goal>monitor</goal>
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<apiToken>38cb501e-da66-45ba-8c4b-11880cad04d2</apiToken>
+				</configuration>
 			</plugin>
 		</plugins>
 
