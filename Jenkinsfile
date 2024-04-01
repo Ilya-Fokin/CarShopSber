@@ -1,6 +1,7 @@
 def api = '38cb501e-da66-45ba-8c4b-11880cad04d2'
 def org = 'e6122c21-84b0-4172-820e-07a47a1a79a6'
 
+
 pipeline {
     agent any
     stages {
@@ -16,8 +17,8 @@ pipeline {
             steps {
                 script {
                     sh "snyk auth ${api}"
-                    sh "snyk code test --report --project-name="<CarShopSber>" --json --org=${org} | snyk-to-html -o results-code-test.html"
-                    sh "snyk test --report --project-name="<CarShopSber>" --json --org=${org} | snyk-to-html -o results-test.html"
+                    sh "snyk code test --report --project-name='"CarShopSber"' --json --org=${org} | snyk-to-html -o results-code-test.html"
+                    sh "snyk test --report --project-name='"CarShopSber"' --json --org=${org} | snyk-to-html -o results-test.html"
                     //sh "chmod +x mvnw"
                     //sh "snyk monitor --org=${org}"
                 }
