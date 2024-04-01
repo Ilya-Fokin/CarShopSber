@@ -93,15 +93,6 @@
 						<goals>
 							<goal>code-test</goal>
 						</goals>
-						<configuration>
-							<failOnIssues>false</failOnIssues>
-							<apiToken>38cb501e-da66-45ba-8c4b-11880cad04d2</apiToken>
-							<args>
-								<arg>--report</arg>
-								<arg>--project-name="CarShopSber"</arg>
-								<arg>--json-file-output=results-code.json</arg>
-							</args>
-						</configuration>
 					</execution>
 					<execution>
 						<phase>none</phase>
@@ -111,6 +102,15 @@
 						</goals>
 					</execution>
 				</executions>
+				<configuration>
+					<failOnIssues>false</failOnIssues>
+					<apiToken>38cb501e-da66-45ba-8c4b-11880cad04d2</apiToken>
+					<args>
+						<arg>--report</arg>
+						<arg>--project-name="CarShopSber"</arg>
+						<arg>--json-file-output=results-code.json</arg>
+					</args>
+				</configuration>
 			</plugin>
 		</plugins>
 
