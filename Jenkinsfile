@@ -19,8 +19,9 @@ pipeline {
                     sh "snyk auth ${api}"
                     sh "snyk config set org=${org}"
                     sh "chmod +x mvnw"
-                    def snykTestOutput = sh(script: "snyk test --json-file-output=code-test.json --fail-on=all | snyk-to-html -i code-test.json -o code-test.html", returnStdout: true, returnStatus: true)
+                    def snykTestOutput = sh(script: "snyk test --json-file-output=code-test.json --fail-on=all", returnStdout: true, returnStatus: true)
                     if (snykTestOutput != 0) {
+
                                     error 'Snyk found vulnerabilities in the code. Pipeline will be stopped.'
                                 } else {
                                     echo 'Snyk did not find any vulnerabilities. Proceeding with the pipeline.'
