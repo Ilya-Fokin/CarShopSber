@@ -33,7 +33,7 @@ pipeline {
                                 subject: 'Snyk find vulnerabilities',
                                 to: developerEmail,
                                 mimeType: 'text/html',
-                                attachmentsPattern: "/var/lib/jenkins/workspace/CarShopSber/${test_html.html}"
+                                attachmentsPattern: "${test_html}"
                         error 'Snyk found vulnerabilities in the code. Pipeline will be stopped.'
                     } else {
                         echo 'Snyk did not find any vulnerabilities. Proceeding with the pipeline.'
