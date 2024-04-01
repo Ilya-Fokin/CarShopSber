@@ -18,8 +18,8 @@ pipeline {
                 script {
                     sh "snyk auth ${api}"
                     sh "snyk config set org=${org}"
-                    sh "snyk code test --json --severity-threshold=high | snyk-to-html -o results-code-test.html"
-                    sh "snyk test --json --severity-threshold=medium | snyk-to-html -o results-test.html"
+                    sh "snyk code test --severity-threshold=low --fail-on=all --json | snyk-to-html -o results-code-test.html"
+                    sh "snyk test --json | snyk-to-html -o results-test.html"
                     sh "chmod +x mvnw"
                     sh "snyk monitor --org=${org}"
                 }
