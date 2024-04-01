@@ -24,7 +24,7 @@ pipeline {
                     sh "${mvn}/bin/mvn io.snyk:snyk-maven-plugin:2.2.0:monitor"*/
                     sh "snyk auth ${api}"
                     sh "snyk config set org=${org}"
-                    sh "snyk code test --severity-threshold=medium --fail-on=all --json | snyk-to-html -o results-code-test.html"
+                    sh "snyk code test --json --fail-on=all"
                     sh "snyk test --json | snyk-to-html -o results-test.html"
                     sh "chmod +x mvnw"
                     sh "snyk monitor --org=${org}"
