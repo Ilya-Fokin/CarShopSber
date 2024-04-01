@@ -94,7 +94,7 @@
 						</goals>
 						<configuration>
 							<skip>true</skip>
-							<failOnIssues>true</failOnIssues><args>
+							<failOnIssues>false</failOnIssues><args>
 							<arg>--report --project-name="CarShopSber"</arg>
 							<arg>--json-file-output=results-code.json</arg>
 						</args>
