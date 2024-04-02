@@ -23,15 +23,17 @@ pipeline {
                     sh "snyk auth ${api}"
                     sh "snyk config set org=${org}"
                     sh "chmod +x mvnw"
-
-                    def snykTestOutput = sh(script: "snyk test --json-file-output=${result_json} --fail-on=all", returnStdout: true, returnStatus: true)
+                    def snykTestOutput = 1
+                    //def snykTestOutput = sh(script: "snyk test --json-file-output=${result_json} --fail-on=all", returnStdout: true, returnStatus: true)
                     if (snykTestOutput != 0) {
                         def recipients = emailextrecipients([ [$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider']])
                         echo "Developer Email: ${recipients}"
                         sh "snyk-to-html -i ${result_json} -o ${test_html}"
                         emailext body: 'Snyk found vulnerabilities in the code. Please review.', // Замените на ваше текстовое сообщение
                                  subject: 'Snyk find vulnerabilities',
-                                 to: 'ilyaaaa.F@yandex.ru'
+                                 to: 'ilyaaaa.F@yandex.ru',
+                                 mimeType: 'text/html',
+                                 attachmentsPattern: "${test_html}"
                         error 'Snyk found vulnerabilities in the code. Pipeline will be stopped.'
                     } else {
                         echo 'Snyk did not find any vulnerabilities. Proceeding with the pipeline.'
