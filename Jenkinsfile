@@ -77,15 +77,17 @@ def snykCodeTest() {
 
 def checkResultsSnykTest() {
     script {
-        def recipients = emailextrecipients([ [$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider']])
+        def recipients = 'fokin3349@mail.ru'
+        //def recipients = emailextrecipients([ [$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider']])
         echo "Developer Email: ${recipients}"
 
-        if (result_snyk_test != 0) {
-            sendResultHtml(result_snyk_test_json, result_snyk_test_html, recipients)
-            error 'Snyk test обнаружил уязвимости в проекте. Pipline остановлен.'
-        }
-        if (result_snyk_code_test != 0) {
-            sendResultHtml(result_snyk_code_test_json,result_snyk_code_test_html, recipients)
+        if (result_snyk_test != 0 || result_snyk_code_test != 0) {
+            if (result_snyk_test != 0) {
+                sendResultHtml(result_snyk_test_json, result_snyk_test_html, recipients)
+            }
+            if (result_snyk_code_test != 0) {
+                sendResultHtml(result_snyk_code_test_json,result_snyk_code_test_html, recipients)
+            }
             error 'Snyk test обнаружил уязвимости в проекте. Pipline остановлен.'
         }
         else {
