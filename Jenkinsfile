@@ -31,7 +31,7 @@ pipeline {
                         sh "snyk-to-html -i ${result_json} -o ${test_html}"
                         emailext body: 'Snyk found vulnerabilities in the code. Please review.', // Замените на ваше текстовое сообщение
                                  subject: 'Snyk find vulnerabilities',
-                                 to: 'fokin3349@mail.ru'
+                                 to: 'ilyaaaa.F@yandex.ru'
                         error 'Snyk found vulnerabilities in the code. Pipeline will be stopped.'
                     } else {
                         echo 'Snyk did not find any vulnerabilities. Proceeding with the pipeline.'
