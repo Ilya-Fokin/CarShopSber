@@ -66,12 +66,14 @@ def snykConfigure() {
 def snykTest() {
     script {
         result_snyk_test = sh(script: "snyk test --json-file-output=${result_snyk_test_json}", returnStatus: true)
+        sh "snyk monitor"
     }
 }
 
 def snykCodeTest() {
     script {
         result_snyk_code_test = sh(script: "snyk code test --json-file-output=${result_snyk_code_test_json}", returnStatus: true)
+        sh "snyk monitor"
     }
 }
 
@@ -88,7 +90,6 @@ def checkResultsSnykTest() {
             if (result_snyk_code_test != 0) {
                 sendResultHtml(result_snyk_code_test_json,result_snyk_code_test_html, recipients)
             }
-            sh "snyk monitor"
             error 'Snyk test обнаружил уязвимости в проекте. Pipline остановлен.'
         }
         else {
