@@ -68,6 +68,7 @@ def snykConfigure() {
 def snykTest() {
     script {
         result_snyk_test = sh(script: "snyk test --json-file-output=${result_snyk_test_json}", returnStatus: true)
+        sh "snyk monitor"
     }
 }
 
