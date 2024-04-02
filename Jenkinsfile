@@ -25,12 +25,12 @@ pipeline {
         }
         stage('Snyk test') {
             steps {
-                result_snyk_test = snykTest()
+                snykTest()
             }
         }
         stage('Snyk code test') {
             steps {
-                result_snyk_code_test = snykCodeTest()
+                snykCodeTest()
             }
         }
         stage ("Check results") {
@@ -63,13 +63,13 @@ def snykConfigure() {
 
 def snykTest() {
     script {
-        return sh(script: "snyk test --json-file-output=${result_json}", returnStatus: true)
+        result_snyk_test = sh(script: "snyk test --json-file-output=${result_snyk_test_json}", returnStatus: true)
     }
 }
 
 def snykCodeTest() {
     script {
-        return sh(script: "snyk code test --json-file-output=${result_json}", returnStatus: true)
+        result_snyk_code_test = sh(script: "snyk code test --json-file-output=${result_snyk_code_test_json}", returnStatus: true)
     }
 }
 
@@ -99,6 +99,6 @@ def sendResultHtml(result_json_file, test_html_file, recipient) {
                  subject: 'Найдены уязвимости в Вашем коммите',
                  to: "${recipient}",
                  mimeType: 'text/html',
-                 attachmentsPattern: "${test_html}"
+                 attachmentsPattern: "${test_html_file}"
     }
 }
