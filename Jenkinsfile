@@ -13,7 +13,7 @@ pipeline {
     def result_snyk_code_test_json = 'snyk_code_test.json'
     def result_snyk_code_test_html = 'snyk_code_test.html'
 
-    def project_name = 'CarShopSber'
+    def project_name = '"CarShopSber"'
     }
 
     stages {
@@ -74,7 +74,7 @@ def snykTest() {
 
 def snykCodeTest() {
     script {
-        result_snyk_code_test = sh(script: "snyk code test --report --project-name='${project_name}' --json-file-output=${result_snyk_code_test_json}", returnStatus: true)
+        result_snyk_code_test = sh(script: "snyk code test --report --project-name=${project_name} --json-file-output=${result_snyk_code_test_json}", returnStatus: true)
     }
 }
 
