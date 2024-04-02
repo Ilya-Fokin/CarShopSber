@@ -1,6 +1,7 @@
 pipeline {
     agent any
 
+    environment {
     def api = '38cb501e-da66-45ba-8c4b-11880cad04d2'
     def org = 'e6122c21-84b0-4172-820e-07a47a1a79a6'
 
@@ -11,6 +12,7 @@ pipeline {
     def result_snyk_code_test = 0
     def result_snyk_code_test_json = 'snyk_code_test.json'
     def result_snyk_code_test_html = 'snyk_code_test.html'
+    }
 
     stages {
         stage('Build') {
