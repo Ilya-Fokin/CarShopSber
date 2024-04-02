@@ -26,8 +26,8 @@ pipeline {
 
                     def snykTestOutput = sh(script: "snyk test --json-file-output=${result_json} --fail-on=all", returnStdout: true, returnStatus: true)
                     if (snykTestOutput != 0) {
-                        def developerEmail = sh(script: "git log -1 --pretty=format:'%ae'", returnStdout: true).trim()
-                        echo "Developer Email: ${developerEmail}"
+                        def recipients = emailextrecipients([ [$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider']])
+                        echo "Developer Email: ${recipients}"
                         sh "snyk-to-html -i ${result_json} -o ${test_html}"
                         emailext body: 'Snyk found vulnerabilities in the code. Please review.', // Замените на ваше текстовое сообщение
                                  subject: 'Snyk find vulnerabilities',
