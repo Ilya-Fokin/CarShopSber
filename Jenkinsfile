@@ -25,11 +25,6 @@ pipeline {
         }
         stage('Snyk test') {
             steps {
-                snykTest()
-            }
-        }
-        stage('Snyk test') {
-            steps {
                 result_snyk_test = snykTest()
             }
         }
