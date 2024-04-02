@@ -88,6 +88,7 @@ def checkResultsSnykTest() {
             if (result_snyk_code_test != 0) {
                 sendResultHtml(result_snyk_code_test_json,result_snyk_code_test_html, recipients)
             }
+            sh "snyk monitor"
             error 'Snyk test обнаружил уязвимости в проекте. Pipline остановлен.'
         }
         else {
