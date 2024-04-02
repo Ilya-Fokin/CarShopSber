@@ -1,46 +1,46 @@
 def api = '38cb501e-da66-45ba-8c4b-11880cad04d2'
 def org = 'e6122c21-84b0-4172-820e-07a47a1a79a6'
 
+def result_snyk_test = 0
+def result_snyk_test_json = 'snyk_test.json'
+def result_snyk_test_html = 'snyk_test.html'
+
+def result_snyk_code_test = 0
+def result_snyk_code_test_json = 'snyk_code_test.json'
+def result_snyk_code_test_html = 'snyk_code_test.html'
+
 
 pipeline {
     agent any
     stages {
-        stage('build') {
+        stage('Build') {
             steps {
-                script {
-                    def mvn = tool 'maven';
-                    sh "${mvn}/bin/mvn clean package --no-transfer-progress"
-                }
+                buildProject()
             }
         }
-        stage('snyk test') {
+        stage('Snyk configure') {
             steps {
-                script {
-                    def result_json = 'code-test.json'
-                    def code_test_html = 'code-test.html'
-                    def test_html = 'test.html'
-
-                    sh "snyk auth ${api}"
-                    sh "snyk config set org=${org}"
-                    sh "chmod +x mvnw"
-                    def snykTestOutput = 1
-                    //def snykTestOutput = sh(script: "snyk test --json-file-output=${result_json} --fail-on=all", returnStdout: true, returnStatus: true)
-                    if (snykTestOutput != 0) {
-                        def recipients = emailextrecipients([ [$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider']])
-                        echo "Developer Email: ${recipients}"
-                        sh "snyk-to-html -i ${result_json} -o ${test_html}"
-                        emailext body: 'Snyk found vulnerabilities in the code. Please review.', // Замените на ваше текстовое сообщение
-                                 subject: 'Snyk find vulnerabilities',
-                                 to: 'ilyaaaa.F@yandex.ru',
-                                 mimeType: 'text/html',
-                                 attachmentsPattern: "${test_html}"
-                        error 'Snyk found vulnerabilities in the code. Pipeline will be stopped.'
-                    } else {
-                        echo 'Snyk did not find any vulnerabilities. Proceeding with the pipeline.'
-                    }
-                    //sh "snyk code test --report --project-name=\"CarShopSber\" --json-file-output=results-code.json --fail-on=all"
-                    //sh "snyk monitor --org=${org}"
-                }
+                snykConfigure()
+            }
+        }
+        stage('Snyk test') {
+            steps {
+                snykTest()
+            }
+        }
+        stage('Snyk test') {
+            steps {
+                result_snyk_test = snykTest()
+            }
+        }
+        stage('Snyk code test') {
+            steps {
+                result_snyk_code_test = snykCodeTest()
+            }
+        }
+        stage ("Check results") {
+            steps {
+                checkResultsSnykTest()
             }
         }
         stage('Start Docker Compose') {
@@ -48,5 +48,62 @@ pipeline {
                 sh 'docker-compose up -d'
              }
         }
+    }
+}
+
+def buildProject() {
+    script {
+        def mvn = tool 'maven'
+        sh "${mvn}/bin/mvn clean package -DskipTests --no-transfer-progress"
+    }
+}
+
+def snykConfigure() {
+    script {
+        sh "snyk auth ${api}"
+        sh "snyk config set org=${org}"
+        sh "chmod +x mvnw"
+    }
+}
+
+def snykTest() {
+    script {
+        return sh(script: "snyk test --json-file-output=${result_json}", returnStatus: true)
+    }
+}
+
+def snykCodeTest() {
+    script {
+        return sh(script: "snyk code test --json-file-output=${result_json}", returnStatus: true)
+    }
+}
+
+def checkResultsSnykTest() {
+    script {
+        def recipients = emailextrecipients([ [$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider']])
+        echo "Developer Email: ${recipients}"
+
+        if (result_snyk_test != 0) {
+            sendResultHtml(result_snyk_test_json, result_snyk_test_html, recipients)
+            error 'Snyk test обнаружил уязвимости в проекте. Pipline остановлен.'
+        }
+        if (result_snyk_code_test != 0) {
+            sendResultHtml(result_snyk_code_test_json,result_snyk_code_test_html, recipients)
+            error 'Snyk test обнаружил уязвимости в проекте. Pipline остановлен.'
+        }
+        else {
+            echo 'Уязвимости не найдены, выполнение pipline продолжается'
+        }
+    }
+}
+
+def sendResultHtml(result_json_file, test_html_file, recipient) {
+    script {
+        sh "snyk-to-html -i ${result_json_file} -o ${test_html_file}"
+        emailext body: 'Snyk обнаружил уязвимости в Вашем коде. Пожалкйста, ознакомьтесь с отчетом',
+                 subject: 'Найдены уязвимости в Вашем коммите',
+                 to: "${recipient}",
+                 mimeType: 'text/html',
+                 attachmentsPattern: "${test_html}"
     }
 }
