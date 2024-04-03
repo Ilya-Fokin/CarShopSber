@@ -20,7 +20,7 @@ pipeline {
         stage('Build') {
             steps {
                 buildProject()
-                def branchName = env.CHANGE_BRANCH // Имя ветки в PR
+                def branchName = env.CHANGE_BRANCH
                 echo "Branch Name: ${branchName}"
             }
         }
