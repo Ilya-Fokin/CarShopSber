@@ -26,7 +26,6 @@ pipeline {
         stage('Build') {
             steps {
                 buildProject()
-                echo "Branch Name: ${branchName}" //jnkргтрит
             }
         }
         stage('Snyk configure') {
