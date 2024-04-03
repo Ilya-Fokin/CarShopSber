@@ -21,7 +21,7 @@ pipeline {
             steps {
                 buildProject()
                 def branchName = env.CHANGE_BRANCH
-                echo "Branch Name: ${branchName}" //jnk
+                echo "Branch Name: ${branchName}" //jnkргт
             }
         }
         stage('Snyk configure') {
