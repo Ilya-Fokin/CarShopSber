@@ -17,10 +17,15 @@ pipeline {
     }
 
     stages {
+        stage('SCM') {
+            steps {
+                checkout scm
+                echo '' + env.BRANCH_NAME
+            }
+        }
         stage('Build') {
             steps {
                 buildProject()
-                def branchName = env.CHANGE_BRANCH
                 echo "Branch Name: ${branchName}" //jnkргтрит
             }
         }
