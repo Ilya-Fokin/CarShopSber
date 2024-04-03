@@ -74,11 +74,11 @@ def snykTest() {
     }
 }
 
-def snykCodeTest() {
+/*def snykCodeTest() {
     script {
-        result_snyk_code_test = sh(script: "snyk code test --report --project-name=${project_name} --json-file-output=${result_snyk_code_test_json}", returnStatus: true)
+        result_snyk_code_test = sh(script: "snyk code test --json-file-output=${result_snyk_code_test_json}", returnStatus: true)
     }
-}
+}*/
 
 def checkResultsSnykTest() {
     script {
