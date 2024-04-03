@@ -20,6 +20,8 @@ pipeline {
         stage('Build') {
             steps {
                 buildProject()
+                def branchName = env.CHANGE_BRANCH // Имя ветки в PR
+                echo "Branch Name: ${branchName}"
             }
         }
         stage('Snyk configure') {
