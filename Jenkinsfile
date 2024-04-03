@@ -19,7 +19,7 @@ pipeline {
     stages {
         stage('SCM') {
             steps {
-                checkout scm
+                //checkout scm
                 echo '' + env.BRANCH_NAME
             }
         }
