@@ -30,6 +30,7 @@ import java.util.UUID;
 @Setter
 @NoArgsConstructor
 public class Car {
+    private static final String someStr = "vwvewv";
     /**
      * Уникальный идентификатор автомобиля.
      */
