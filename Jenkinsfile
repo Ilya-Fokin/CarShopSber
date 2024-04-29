@@ -2,8 +2,8 @@ pipeline {
     agent any
 
     environment {
-    def api = '38cb501e-da66-45ba-8c4b-11880cad04d2'
-    def org = 'e6122c21-84b0-4172-820e-07a47a1a79a6'
+    def api = '6c2b7175-768e-4293-a806-6848cc196ac0'
+    def org = 'dd028e93-0359-4924-9511-3c4b525a8277'
 
     def result_snyk_test = 0
     def result_snyk_test_json = 'snyk_test.json'
@@ -19,7 +19,6 @@ pipeline {
     stages {
         stage('SCM') {
             steps {
-                //checkout scm
                 echo '' + env.BRANCH_NAME
             }
         }
