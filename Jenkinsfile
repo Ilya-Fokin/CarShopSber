@@ -64,6 +64,11 @@ def buildProject() {
     script {
         def mvn = tool 'maven'
         sh "${mvn}/bin/mvn clean package -DskipTests --no-transfer-progress"
+        emailext(
+            body: 'Проверка отправки электронной почты',
+            subject: 'Тестовое сообщение',
+            to: 'fokin3349@mail.ru'
+        )
     }
 }
 
