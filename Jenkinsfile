@@ -3,7 +3,7 @@ pipeline {
 
     environment {
     def api = '6c2b7175-768e-4293-a806-6848cc196ac0'
-    def org = 'dd028e93-0359-4924-9511-3c4b525a8277'
+    def org = 'dd028e93-0359-4924-9511-3c4b525a82776'
 
     def result_snyk_test = 0
     def result_snyk_test_json = 'snyk_test.json'
