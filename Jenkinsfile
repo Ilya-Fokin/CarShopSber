@@ -90,6 +90,7 @@ def snykTest() {
 
 def checkResultsSnykTest() {
     script {
+        //def recipients = emailextrecipients([ [$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider']])
         def recipients = 'fokin3349@mail.ru'
         echo "Developer Email: ${recipients}"
 
