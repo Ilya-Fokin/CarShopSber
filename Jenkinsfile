@@ -97,7 +97,7 @@ def checkResultsSnykTest() {
     script {
         //def recipients = emailextrecipients([ [$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider']])
         def recipients = 'fokin3349@mail.ru'
-        echo "Developer Email: ${recipients}"
+        echo "Developer Email : ${recipients}"
 
         if (result_snyk_test != 0 || result_snyk_code_test != 0) {
             if (result_snyk_test != 0) {
