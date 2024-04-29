@@ -47,6 +47,11 @@ pipeline {
                 checkResultsSnykTest()
             }
         }
+        stage ("Check branch") {
+            steps {
+                checkBranch()
+            }
+        }
         stage('Start Docker Compose') {
              steps {
                 sh 'docker-compose up -d'
@@ -86,7 +91,6 @@ def snykTest() {
 def checkResultsSnykTest() {
     script {
         def recipients = 'fokin3349@mail.ru'
-        //def recipients = emailextrecipients([ [$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider']])
         echo "Developer Email: ${recipients}"
 
         if (result_snyk_test != 0 || result_snyk_code_test != 0) {
@@ -112,5 +116,17 @@ def sendResultHtml(result_json_file, test_html_file, recipient) {
                  to: "${recipient}",
                  mimeType: 'text/html',
                  attachmentsPattern: "${test_html_file}"
+    }
+}
+
+def checkBranch() {
+    script {
+        echo '' + env.BRANCH_NAME
+        if (env.BRANCH_NAME != 'master') {
+            currentBuild.result = 'SUCCESS'
+            return
+        } else {
+            echo 'Ветка мастер, работаем дальше'
+        }
     }
 }
