@@ -52,8 +52,7 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME != 'master') {
                         echo '' + env.BRANCH_NAME
-                        currentBuild.result = 'SUCCESS'
-                        return
+                        exit 0
                     } else {
                         echo 'Ветка мастер, работаем дальше'
                     }
