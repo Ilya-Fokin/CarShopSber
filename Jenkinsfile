@@ -62,7 +62,7 @@ pipeline {
         }
         stage('Start Docker Compose') {
              steps {
-                sh 'docker-compose down'
+                sh 'docker-compose down -v --rmi all'
                 sh 'docker-compose up -d'
              }
         }
