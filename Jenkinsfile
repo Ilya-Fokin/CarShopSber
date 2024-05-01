@@ -112,7 +112,7 @@ def checkResultsSnykTest() {
 def sendResultHtml(result_json_file, test_html_file, recipient) {
     script {
         sh "snyk-to-html -i ${result_json_file} -o ${test_html_file}"
-        emailext body: 'Snyk обнаружил уязвимости в Вашем коде. Пожалкйста, ознакомьтесь с отчетом',
+        emailext body: 'Snyk обнаружил уязвимости в Вашем коде. Пожалуйста, ознакомьтесь с отчетом',
                  subject: 'Найдены уязвимости в Вашем коммите',
                  to: "${recipient}",
                  mimeType: 'text/html',
@@ -131,3 +131,5 @@ def checkBranch() {
         }
     }
 }
+
+
