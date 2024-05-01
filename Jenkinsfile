@@ -42,11 +42,11 @@ pipeline {
                 snykCodeTest()
             }
         }*/
-        stage ("Check results") {
+        /*stage ("Check results") {
             steps {
                 checkResultsSnykTest()
             }
-        }
+        }*/
         stage ("Check branch") {
             steps {
                 checkBranch()
@@ -64,11 +64,6 @@ def buildProject() {
     script {
         def mvn = tool 'maven'
         sh "${mvn}/bin/mvn clean package -DskipTests --no-transfer-progress"
-        emailext(
-            body: 'Проверка отправки электронной почты',
-            subject: 'Тестовое сообщение',
-            to: 'fokin3349@mail.ru'
-        )
     }
 }
 
@@ -96,7 +91,7 @@ def snykTest() {
 def checkResultsSnykTest() {
     script {
         //def recipients = emailextrecipients([ [$class: 'DevelopersRecipientProvider'],[$class: 'CulpritsRecipientProvider']])
-        def recipients = 'ilya260637@gmail.com'
+        def recipients = 'fokin3349@mail.ru'
         echo "Developer Email : ${recipients}"
 
         if (result_snyk_test != 0 || result_snyk_code_test != 0) {
