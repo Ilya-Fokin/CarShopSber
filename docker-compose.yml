@@ -24,6 +24,6 @@ services:
       DB_NAME: CarShopSber
     ports:
       - "8081:8081"
-      -
+
 volumes:
   vol-pg-3: {}
