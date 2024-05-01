@@ -7,6 +7,8 @@ services:
       POSTGRES_USER: root
       POSTGRES_PASSWORD: password
       POSTGRES_DB: CarShopSber
+    networks:
+      - dev-net-3
     volumes:
       - vol-pg-3:/var/lib/postgresql/data
     ports:
@@ -22,8 +24,14 @@ services:
       DB_USER: root
       DB_PASSWORD: password
       DB_NAME: CarShopSber
+    networks:
+      - dev-net-3
     ports:
       - "8081:8081"
+
+networks:
+  dev-net-3:
+    driver: bridge
 
 volumes:
   vol-pg-3: {}
