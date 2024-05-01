@@ -13,6 +13,8 @@ pipeline {
     def result_snyk_code_test_json = 'snyk_code_test.json'
     def result_snyk_code_test_html = 'snyk_code_test.html'
 
+    def skipRemainingStages = false
+
     def project_name = 'com.example:CarShopSber'
     }
 
@@ -52,7 +54,7 @@ pipeline {
                 script {
                     if (env.BRANCH_NAME != 'master') {
                         echo '' + env.BRANCH_NAME
-                        exit 0
+                        skipRemainingStages = true
                     } else {
                         echo 'Ветка мастер, работаем дальше'
                     }
@@ -60,6 +62,11 @@ pipeline {
             }
         }
         stage('Start Docker Compose') {
+             when {
+                expression {
+                    !skipRemainingStages
+                }
+             }
              steps {
                 sh 'docker-compose down -v --rmi all'
                 sh 'docker-compose up -d'
