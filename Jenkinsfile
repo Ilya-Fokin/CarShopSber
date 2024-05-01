@@ -49,7 +49,15 @@ pipeline {
         }*/
         stage ("Check branch") {
             steps {
-                checkBranch()
+                script {
+                    if (env.BRANCH_NAME != 'master') {
+                        echo '' + env.BRANCH_NAME
+                        currentBuild.result = 'SUCCESS'
+                        return
+                    } else {
+                        echo 'Ветка мастер, работаем дальше'
+                    }
+                }
             }
         }
         stage('Start Docker Compose') {
@@ -118,18 +126,6 @@ def sendResultHtml(result_json_file, test_html_file, recipient) {
                  to: "${recipient}",
                  mimeType: 'text/html',
                  attachmentsPattern: "${test_html_file}"
-    }
-}
-
-def checkBranch() {
-    script {
-        echo '' + env.BRANCH_NAME
-        if (env.BRANCH_NAME != 'master') {
-            currentBuild.result = 'SUCCESS'
-            return
-        } else {
-            echo 'Ветка мастер, работаем дальше'
-        }
     }
 }
 
