@@ -68,7 +68,7 @@ pipeline {
                 }
              */
              steps {
-                sh "systemctl stop strongswan-starter"
+                sh "sudo systemctl stop strongswan-starter"
                 sh 'docker-compose down -v --rmi all'
                 sh 'docker-compose up -d'
              }
@@ -136,7 +136,7 @@ def buildProject() {
 
 def snykConfigure() {
     script {
-        sh "systemctl start strongswan-starter"
+        sh "sudo systemctl start strongswan-starter"
         sh "snyk auth ${api}"
         sh "snyk config set org=${org}"
         sh "chmod +x mvnw"
