@@ -66,12 +66,64 @@ pipeline {
                 expression {
                     !skipRemainingStages
                 }
-             }*/
+             */
              steps {
+                sh "systemctl stop strongswan-starter"
                 sh 'docker-compose down -v --rmi all'
                 sh 'docker-compose up -d'
              }
         }
+
+        stage('OWASP ZAP Scan') {
+            steps {
+                script {
+                    def zapContainer = sh(
+                                script: '''
+                                    docker run -d --name zap \
+                                    -p 8090:8090 \
+                                    owasp/zap2docker-stable zap.sh \
+                                    -daemon -port 8090 \
+                                    -host 0.0.0.0 \
+                                    -config api.disablekey=true \
+                                    -config api.addrs.addr.name=.* \
+                                    -config api.addrs.addr.regex=true
+                                ''',
+                                returnStdout: true
+                            ).trim()
+
+                    sh '''
+                        docker exec zap zap-cli quick-scan \
+                        --self-contained --spider --ajax-spider --recursive \
+                        http://localhost:8081
+                    '''
+
+                    sh '''
+                        docker exec zap zap-cli report \
+                        --output /zap/report.html --format html
+                    '''
+
+                    sh '''
+                        docker cp zap:/zap/report.html .
+                    '''
+
+                    sh 'docker stop zap'
+                    sh 'docker rm zap'
+                }
+            }
+        }
+
+        stage('Publish OWASP ZAP Report') {
+                    steps {
+                        // Архивация отчета OWASP ZAP
+                        archiveArtifacts 'report.html'
+
+                        // (Дополнительно) Отправка отчета по электронной почте
+                        emailext body: 'Отчет о сканировании OWASP ZAP.',
+                                 subject: 'OWASP ZAP Report',
+                                 to: 'fokin3349@mail.ru',
+                                 attachmentsPattern: 'report.html'
+                    }
+                }
     }
 }
 
@@ -84,6 +136,7 @@ def buildProject() {
 
 def snykConfigure() {
     script {
+        sh "systemctl start strongswan-starter"
         sh "snyk auth ${api}"
         sh "snyk config set org=${org}"
         sh "chmod +x mvnw"
