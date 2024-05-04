@@ -39,10 +39,10 @@ public class SecurityConfig {
     protected SecurityFilterChain configure(HttpSecurity http) throws Exception {
         http.csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/profile/**", "/add_car","/car/add_car", "/favourite")
-                        .authenticated()
-                        .requestMatchers("/admin/**").hasRole("admin")
-                        .requestMatchers("/car/**").permitAll()
+                        //.requestMatchers("/profile/**", "/add_car","/car/add_car", "/favourite")
+                        //.authenticated()
+                        //.requestMatchers("/admin/**").hasRole("admin")
+                        //.requestMatchers("/car/**").permitAll()
                         .anyRequest().permitAll()
                 )
                 .formLogin(form -> form
