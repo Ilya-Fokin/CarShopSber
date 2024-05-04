@@ -82,7 +82,7 @@ pipeline {
         stage('Start OWASP ZAP') {
                     steps {
                         script {
-                            sh "zap.sh -daemon -port ${zapPort}"
+                            sh "zap.sh -daemon -port ${zapPort} -config api.key="
                         }
                     }
         }
