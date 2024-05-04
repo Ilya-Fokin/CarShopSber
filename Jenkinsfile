@@ -101,7 +101,7 @@ pipeline {
         stage('Generate ZAP Report') {
                     steps {
                         script {
-                            sh "zap-cli report --output ${zapReport} --format html"
+                            sh "zap-cli report --output zap-report.html"
                         }
                     }
         }
