@@ -84,7 +84,7 @@ pipeline {
                     steps {
                         script {
                             sh "zap.sh -daemon -port ${zapPort} -config api.key= &"
-                            sh "sleep 35"
+                            sh "sleep 60"
                         }
                     }
         }
@@ -121,7 +121,7 @@ pipeline {
                                                                      attachmentsPattern: "${zapReport}",
                                                                      mimeType: 'text/html'
 
-                                error "Found ${highSeverityAlerts} high severity alerts. Failing the pipeline."
+                                error "Найдено ${highSeverityAlerts} уязвимостей. Сборка остановлена."
                             }
                         }
                     }
