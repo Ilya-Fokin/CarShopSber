@@ -44,7 +44,7 @@ pipeline {
                 snykTest()
             }
         }
-        stage('Snyk code test') {
+        /*stage('Snyk code test') {
             steps {
                 snykCodeTest()
             }
@@ -53,7 +53,7 @@ pipeline {
             steps {
                 checkResultsSnykTest()
             }
-        }
+        }*/
         stage ("Check branch") {
             steps {
                 script {
@@ -121,7 +121,6 @@ pipeline {
         }
 
     }
-
      post {
             always {
                 script {
@@ -154,11 +153,11 @@ def snykTest() {
     }
 }
 
-/*def snykCodeTest() {
+def snykCodeTest() {
     script {
         result_snyk_code_test = sh(script: "snyk code test --json-file-output=${result_snyk_code_test_json}", returnStatus: true)
     }
-}*/
+}
 
 def checkResultsSnykTest() {
     script {
