@@ -17,7 +17,7 @@ pipeline {
 
     zapPort = "8090"
     zapUrl = "http://localhost:${zapPort}"
-    scanTarget = "http://localhost:8081"
+    scanTarget = "http://localhost:8085"
     zapReport = "zap-report.html"
 
     def project_name = 'com.example:CarShopSber'
@@ -84,7 +84,7 @@ pipeline {
                     steps {
                         script {
                             sh "zap.sh -daemon -port ${zapPort} -config api.key= &"
-                            sh "sleep 15"
+                            sh "sleep 25"
                         }
                     }
         }
@@ -107,18 +107,26 @@ pipeline {
                     }
         }
 
-
-        stage('Email Report') {
+        stage('Check alerts') {
                     steps {
                         script {
-                            emailext body: "Отчет OWASP ZAP о проведенной проверке.",
-                                     subject: "OWASP ZAP Report",
-                                     to: "fokin3349@mail.ru",
-                                     attachmentsPattern: "${zapReport}",
-                                     mimeType: 'text/html'
+                            def highSeverityAlerts = sh(
+                                script: "zap-cli alerts -l Medium --exit-code False | wc -l",
+                                returnStdout: true
+                            ).trim().toInteger()
+
+                            if (highSeverityAlerts > 0) {
+                                error "Found ${highSeverityAlerts} high severity alerts. Failing the pipeline."
+                                emailext body: "Отчет OWASP ZAP о проведенной проверке.",
+                                                                     subject: "OWASP ZAP Report",
+                                                                     to: "fokin3349@mail.ru",
+                                                                     attachmentsPattern: "${zapReport}",
+                                                                     mimeType: 'text/html'
+                            }
                         }
                     }
-        }
+                }
+
 
     }
      post {
