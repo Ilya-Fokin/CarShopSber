@@ -115,12 +115,13 @@ pipeline {
                             ).trim().toInteger()
 
                             if (highSeverityAlerts > 0) {
-                                error "Found ${highSeverityAlerts} high severity alerts. Failing the pipeline."
                                 emailext body: "Отчет OWASP ZAP о проведенной проверке.",
                                                                      subject: "OWASP ZAP Report",
                                                                      to: "fokin3349@mail.ru",
                                                                      attachmentsPattern: "${zapReport}",
                                                                      mimeType: 'text/html'
+
+                                error "Found ${highSeverityAlerts} high severity alerts. Failing the pipeline."
                             }
                         }
                     }
