@@ -67,10 +67,11 @@ pipeline {
             }
         }
         stage('Start Docker Compose') {
-             when {
+             /*when {
                 expression {
                     !skipRemainingStages
                 }
+             }*/
 
              steps {
                 sh "sudo systemctl stop strongswan-starter"
