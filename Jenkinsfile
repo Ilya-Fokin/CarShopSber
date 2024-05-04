@@ -15,6 +15,11 @@ pipeline {
 
     def skipRemainingStages = false
 
+    zapPort = "8090"
+    zapUrl = "http://localhost:${zapPort}"
+    scanTarget = "http://localhost:8081"
+    zapReport = "zap-report.html"
+
     def project_name = 'com.example:CarShopSber'
     }
 
@@ -74,57 +79,54 @@ pipeline {
              }
         }
 
-        stage('OWASP ZAP Scan') {
-            steps {
+        stage('Start OWASP ZAP') {
+                    steps {
+                        script {
+                            sh "zap.sh -daemon -port ${zapPort}"
+                        }
+                    }
+        }
+
+        stage('Quick Scan with OWASP ZAP') {
+                    steps {
+                        script {
+                            sh "zap-cli spider ${scanTarget}"
+                            sh "zap-cli wait-for-passive-scan"
+                            sh "zap-cli active-scan ${scanTarget}"
+                        }
+                    }
+        }
+
+        stage('Generate ZAP Report') {
+                    steps {
+                        script {
+                            sh "zap-cli report --output ${zapReport} --format html"
+                        }
+                    }
+        }
+
+
+        stage('Email Report') {
+                    steps {
+                        script {
+                            emailext body: "Отчет OWASP ZAP о проведенной проверке.",
+                                     subject: "OWASP ZAP Report",
+                                     to: "fokin3349@mail.ru",
+                                     attachmentsPattern: "${zapReport}",
+                                     mimeType: 'text/html'
+                        }
+                    }
+        }
+
+    }
+
+     post {
+            always {
                 script {
-                    def zapContainer = sh(
-                                script: '''
-                                    docker run -d --name zap \
-                                    -p 8090:8090 \
-                                    owasp/zap2docker-stable zap.sh \
-                                    -daemon -port 8090 \
-                                    -host 0.0.0.0 \
-                                    -config api.disablekey=true \
-                                    -config api.addrs.addr.name=.* \
-                                    -config api.addrs.addr.regex=true
-                                ''',
-                                returnStdout: true
-                            ).trim()
-
-                    sh '''
-                        docker exec zap zap-cli quick-scan \
-                        --self-contained --spider --ajax-spider --recursive \
-                        http://localhost:8081
-                    '''
-
-                    sh '''
-                        docker exec zap zap-cli report \
-                        --output /zap/report.html --format html
-                    '''
-
-                    sh '''
-                        docker cp zap:/zap/report.html .
-                    '''
-
-                    sh 'docker stop zap'
-                    sh 'docker rm zap'
+                    sh "zap-cli -p ${zapPort} shutdown"
                 }
             }
         }
-
-        stage('Publish OWASP ZAP Report') {
-                    steps {
-                        // Архивация отчета OWASP ZAP
-                        archiveArtifacts 'report.html'
-
-                        // (Дополнительно) Отправка отчета по электронной почте
-                        emailext body: 'Отчет о сканировании OWASP ZAP.',
-                                 subject: 'OWASP ZAP Report',
-                                 to: 'fokin3349@mail.ru',
-                                 attachmentsPattern: 'report.html'
-                    }
-                }
-    }
 }
 
 def buildProject() {
