@@ -84,7 +84,6 @@ pipeline {
                     steps {
                         script {
                             sh "zap.sh -daemon -port ${zapPort} -config api.key= &"
-                            sh "sleep 35"
                         }
                     }
         }
