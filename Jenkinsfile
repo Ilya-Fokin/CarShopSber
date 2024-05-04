@@ -44,16 +44,16 @@ pipeline {
                 snykTest()
             }
         }
-        /*stage('Snyk code test') {
+        stage('Snyk code test') {
             steps {
                 snykCodeTest()
             }
-        }*/
-        /*stage ("Check results") {
+        }
+        stage ("Check results") {
             steps {
                 checkResultsSnykTest()
             }
-        }*/
+        }
         stage ("Check branch") {
             steps {
                 script {
@@ -61,17 +61,17 @@ pipeline {
                         echo '' + env.BRANCH_NAME
                         skipRemainingStages = true
                     } else {
-                        echo 'Ветка мастер, работаем дальше'
+                        echo 'Current branch is master'
                     }
                 }
             }
         }
         stage('Start Docker Compose') {
-             /*when {
+             when {
                 expression {
                     !skipRemainingStages
                 }
-             */
+
              steps {
                 sh "sudo systemctl stop strongswan-starter"
                 sh 'docker-compose down -v --rmi all'
@@ -82,7 +82,8 @@ pipeline {
         stage('Start OWASP ZAP') {
                     steps {
                         script {
-                            sh "zap.sh -daemon -port ${zapPort} -config api.key="
+                            sh "zap.sh -daemon -port ${zapPort} -config api.key= &"
+                            sh "sleep 15"
                         }
                     }
         }
