@@ -93,7 +93,6 @@ pipeline {
                     steps {
                         script {
                             sh "zap-cli spider ${scanTarget}"
-                            sh "zap-cli wait-for-passive-scan"
                             sh "zap-cli active-scan ${scanTarget}"
                         }
                     }
