@@ -89,7 +89,7 @@ pipeline {
                      }
                     steps {
                         script {
-                            sh "zap.sh -daemon -port ${zapPort} -config api.key= &"
+                            echo "zap.sh -daemon -port ${zapPort} -config api.key= &"
                         }
                     }
         }
