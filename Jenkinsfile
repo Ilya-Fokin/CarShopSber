@@ -90,6 +90,7 @@ pipeline {
                     steps {
                         script {
                             sh "zap.sh -daemon -port ${zapPort} -config api.key= &"
+                            sh "sleep 30"
                         }
                     }
         }
@@ -107,7 +108,6 @@ pipeline {
                         }
                     }
         }
-
         stage('Generate ZAP Report') {
                 when {
                         expression {
