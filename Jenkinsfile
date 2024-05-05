@@ -123,7 +123,7 @@ pipeline {
         stage('Check alerts') {
                 when {
                         expression {
-                            !skipRemainingStages
+                            skipRemainingStages
                         }
                      }
                     steps {
