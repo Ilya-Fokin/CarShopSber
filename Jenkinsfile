@@ -44,7 +44,7 @@ pipeline {
                 snykTest()
             }
         }
-        /*stage('Snyk code test') {
+        stage('Snyk code test') {
             steps {
                 snykCodeTest()
             }
@@ -53,7 +53,7 @@ pipeline {
             steps {
                 checkResultsSnykTest()
             }
-        }*/
+        }
         stage ("Check branch") {
             steps {
                 script {
@@ -67,11 +67,11 @@ pipeline {
             }
         }
         stage('Start Docker Compose') {
-             /*when {
+             when {
                 expression {
                     !skipRemainingStages
                 }
-             }*/
+             }
 
              steps {
                 sh "sudo systemctl stop strongswan-starter"
