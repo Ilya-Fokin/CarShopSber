@@ -1,0 +1,9 @@
+{
+  "databaseChangeLog": [
+    {
+      "include": {
+        "file": "classpath:migration/changelog/init/init_migration.json"
+      }
+    }
+  ]
+}
