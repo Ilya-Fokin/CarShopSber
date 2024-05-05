@@ -102,6 +102,7 @@ pipeline {
                          }
                     steps {
                         script {
+                            sh "zap-cli -p 8090 open-url ${scanTarget}"
                             sh "zap-cli -p 8090 spider ${scanTarget}"
                             sh "zap-cli -p 8090 active-scan ${scanTarget}"
                         }
