@@ -62,6 +62,7 @@ pipeline {
                         skipRemainingStages = true
                     } else {
                         echo 'Current branch is master'
+                        skipRemainingStages = false
                     }
                 }
             }
