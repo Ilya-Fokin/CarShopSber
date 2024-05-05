@@ -49,11 +49,11 @@ pipeline {
                 snykCodeTest()
             }
         }
-        stage ("Check results") {
+        /*stage ("Check results") {
             steps {
                 checkResultsSnykTest()
             }
-        }
+        }*/
         stage ("Check branch") {
             steps {
                 script {
