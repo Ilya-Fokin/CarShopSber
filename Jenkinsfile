@@ -81,6 +81,11 @@ pipeline {
         }
 
         stage('Start OWASP ZAP') {
+                when {
+                        expression {
+                            !skipRemainingStages
+                        }
+                     }
                     steps {
                         script {
                             sh "zap.sh -daemon -port ${zapPort} -config api.key= &"
@@ -89,6 +94,11 @@ pipeline {
         }
 
         stage('Quick Scan with OWASP ZAP') {
+                   when {
+                            expression {
+                                !skipRemainingStages
+                            }
+                         }
                     steps {
                         script {
                             sh "zap-cli spider ${scanTarget}"
@@ -98,6 +108,11 @@ pipeline {
         }
 
         stage('Generate ZAP Report') {
+                when {
+                        expression {
+                            !skipRemainingStages
+                        }
+                     }
                     steps {
                         script {
                             sh "zap-cli report --output zap-report.html"
@@ -106,6 +121,11 @@ pipeline {
         }
 
         stage('Check alerts') {
+                when {
+                        expression {
+                            !skipRemainingStages
+                        }
+                     }
                     steps {
                         script {
                             def highSeverityAlerts = sh(
