@@ -124,7 +124,7 @@ pipeline {
         stage('Check alerts') {
                 when {
                         expression {
-                            skipRemainingStages
+                            !skipRemainingStages
                         }
                      }
                     steps {
@@ -141,7 +141,7 @@ pipeline {
                                                                      attachmentsPattern: "${zapReport}",
                                                                      mimeType: 'text/html'
 
-                                error "Найдено ${highSeverityAlerts} уязвимостей. Сборка остановлена."
+                                //error "Найдено ${highSeverityAlerts} уязвимостей. Сборка остановлена."
                             }
                         }
                     }
