@@ -90,7 +90,6 @@ pipeline {
                     steps {
                         script {
                             sh "zap.sh -daemon -port ${zapPort} -config api.key= &"
-                            sh "sleep 30"
                         }
                     }
         }
@@ -103,8 +102,8 @@ pipeline {
                          }
                     steps {
                         script {
-                            sh "zap-cli spider ${scanTarget}"
-                            sh "zap-cli active-scan ${scanTarget}"
+                            sh "zap-cli -p 8090 spider ${scanTarget}"
+                            sh "zap-cli -p 8090 active-scan ${scanTarget}"
                         }
                     }
         }
